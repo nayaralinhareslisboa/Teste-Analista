@@ -37,7 +37,7 @@ CREATE TABLE departamentos_filiais(
 
 /* 4- Para cada filial, insira os seguintes departamentos*/
 /*DEPARTAMENTOS*/
-INSERT INTO departamentos_filiais (name) VALUES ('Expedicao'), ('SAC'), ('Operacional'), ('Administrativo'), ('Gerencia');
+INSERT INTO departamentos (name) VALUES ('Expedicao'), ('SAC'), ('Operacional'), ('Administrativo'), ('Gerencia');
 /*DEPARTAMENTOS POR FILIAL*/
 INSERT INTO departamentos_filiais (dep_id, filiais_id) VALUES ('1','1'), ('2','1'), ('3','1'), ('4','1'), ('5','1');
 INSERT INTO departamentos_filiais (dep_id, filiais_id) VALUES ('1','2'), ('2','2'), ('3','2'), ('4','2'), ('5','2');
@@ -94,6 +94,7 @@ INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, 
 INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656926', 'Rubia Matos', 'F', '04-09-2018', '1450','9','3');
 INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656927', 'Alessando Varela', 'M', '04-08-2015', '1890','9','4');
 INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656928', 'Cintia Gomes', 'F', '04-05-2015', '3500','9','5');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656929', 'Nicolas Lopes', 'M', '04-10-2021', '1800','1','1');
 
 /* 7- Crie uma consulta SQL que liste todos os colaboradores da empresa. A consulta deve trazer as
 seguintes colunas: */
