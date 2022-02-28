@@ -1,0 +1,129 @@
+/* 1- Crie uma tabela no banco de dados para armazenar o cadastro das filiais da Alfa Transportes. Na
+tabela, deverão ser armazenados os seguintes dados: */
+CREATE TABLE filiais(
+	filiais_id SERIAL PRIMARY KEY,
+	name VARCHAR(256) NOT NULL,
+	cnpj VARCHAR(14) UNIQUE NOT NULL ,
+	cidade VARCHAR(256) NOT NULL,
+	estado VARCHAR(2) NOT NULL
+);
+
+/* 2- Insira os dados abaixo na tabela de filiais */
+INSERT INTO filiais (cnpj, name, cidade, estado) 
+VALUES ('82110818000121','ALFA TRANSPORTES EIRELI','Cacador','SC'),
+('82110818000202','ALFA TRANSPORTES EIRELI','Curitiba','PR'),
+('82110818000393','ALFA TRANSPORTES EIRELI','Guarulhos','SP'),
+('82110818001608','ALFA TRANSPORTES EIRELI','Betim','MG'),
+('82110818000806','ALFA TRANSPORTES EIRELI','Cachoeirinha','RS'),
+('82110818002760','ALFA TRANSPORTES EIRELI','Tres Lagoas','MS'),
+('82110818002094','ALFA TRANSPORTES EIRELI','Goiania','GO'),
+('82110818002507','ALFA TRANSPORTES EIRELI','Serra','ES'),
+('82110818002841','ALFA TRANSPORTES EIRELI','Rio de Janeiro','RJ');
+
+/* 3- Crie uma tabela para armazenar o cadastro dos departamentos de cada filial. Nesta tabela,
+deverão ser armazenados os seguintes dados:*/
+
+CREATE TABLE departamentos(
+	dep_id SERIAL PRIMARY KEY,
+	name VARCHAR(256) UNIQUE NOT NULL
+);
+
+CREATE TABLE departamentos_filiais(
+	filiais_id INT,
+	FOREIGN KEY (filiais_id) REFERENCES filiais (filiais_id),
+	dep_id INT,
+	FOREIGN KEY (dep_id) REFERENCES departamentos (dep_id)
+);
+
+/* 4- Para cada filial, insira os seguintes departamentos*/
+/*DEPARTAMENTOS*/
+INSERT INTO departamentos_filiais (name) VALUES ('Expedicao'), ('SAC'), ('Operacional'), ('Administrativo'), ('Gerencia');
+/*DEPARTAMENTOS POR FILIAL*/
+INSERT INTO departamentos_filiais (dep_id, filiais_id) VALUES ('1','1'), ('2','1'), ('3','1'), ('4','1'), ('5','1');
+INSERT INTO departamentos_filiais (dep_id, filiais_id) VALUES ('1','2'), ('2','2'), ('3','2'), ('4','2'), ('5','2');
+INSERT INTO departamentos_filiais (dep_id, filiais_id) VALUES ('1','3'), ('2','3'), ('3','3'), ('4','3'), ('5','3');
+INSERT INTO departamentos_filiais (dep_id, filiais_id) VALUES ('1','4'), ('2','4'), ('3','4'), ('4','4'), ('5','4');
+INSERT INTO departamentos_filiais (dep_id, filiais_id) VALUES ('1','5'), ('2','5'), ('3','5'), ('4','5'), ('5','5');
+INSERT INTO departamentos_filiais (dep_id, filiais_id) VALUES ('1','6'), ('2','6'), ('3','6'), ('4','6'), ('5','6');
+INSERT INTO departamentos_filiais (dep_id, filiais_id) VALUES ('1','7'), ('2','7'), ('3','7'), ('4','7'), ('5','7');
+INSERT INTO departamentos_filiais (dep_id, filiais_id) VALUES ('1','8'), ('2','8'), ('3','8'), ('4','8'), ('5','8');
+INSERT INTO departamentos_filiais (dep_id, filiais_id) VALUES ('1','9'), ('2','9'), ('3','9'), ('4','9'), ('5','9');
+
+select * from departamentos_filiais;
+SELECT filiais.name, filiais.cidade, departamentos.name 
+FROM filiais, departamentos
+JOIN departamentos_filiais ON departamentos_filiais.dep_id = departamentos.dep_id;
+
+/* 5- Crie uma tabela para armazenar os colaboradores. O colaborador deve ter os dados abaixo: */
+CREATE TABLE funcionarios(
+	CPF CHAR(11) PRIMARY KEY,
+	name VARCHAR(256) NOT NULL,
+	genero VARCHAR(1) NOT NULL ,
+	data_admissao DATE NOT NULL,
+	id_departamento INT NOT NULL,
+	salario int NOT NULL,
+	FOREIGN KEY (id_departamento) REFERENCES departamentos (dep_id),
+	id_filial INT NOT NULL,
+	FOREIGN KEY (id_filial) REFERENCES filiais (filiais_id)
+);
+/*6- Insira pelo menos 3 colaboradores para cada filial*/
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656923', 'Nayara Lisboa', 'F', '04-10-2012', '1500','1','1');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656924', 'Marcelo de Jesus', 'M', '04-09-2021', '1850','3','4');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656925', 'Fernando Martins', 'M', '15-05-2018', '1450','8','2');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656902', 'Ana Paula Linhares', 'F', '04-07-2014', '2000','1','2');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656903', 'Lucas Lisboa', 'M', '04-10-2016', '2200','1','3');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656904', 'Maria da Silva', 'F', '04-10-2012', '2300','2','4');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656905', 'Bruna Morais', 'F', '04-03-2011', '1800','2','5');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656906', 'João Paulo', 'M', '04-11-2014', '1600','2','1');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656907', 'Henrique Freitas', 'M', '04-10-2016', '2000','3','2');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656908', 'Marilia Prestes', 'F', '04-03-2013', '600','3','3');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656909', 'Ricardo dos Passos', 'M', '04-09-2014', '3000','4','4');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656910', 'Beatriz Lima', 'F', '04-01-2017', '10000','4','5');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656911', 'Luana Goncalves', 'F', '04-01-2018', '1800','4','1');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656912', 'Felipe Cardoso', 'M', '04-05-2019', '1050','5','2');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656913', 'Bruno Teixeira', 'M', '04-02-2011', '1600','5','3');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656914', 'Joel Mendes', 'M', '04-02-2014', '1550','5','4');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656915', 'Carla Bertulini', 'F', '04-08-2011', '1800','6','5');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656916', 'Maria Ferreira', 'F', '04-10-2016', '3000','6','1');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656917', 'Valdecir Gomes', 'M', '04-09-2013', '1860','6','2');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656918', 'Patricia Maier', 'F', '04-09-2014', '3000','7','3');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656919', 'Joana Fonseca', 'F', '04-07-2017', '1400','7','4');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656920', 'Vitor Andrade', 'M', '04-04-2011', '5000','7','5');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656921', 'Sergio Rodrigues', 'M', '04-05-2019', '1400','8','1');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656922', 'Antonio Martines', 'M', '04-03-2018', '1000','8','2');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656926', 'Rubia Matos', 'F', '04-09-2018', '1450','9','3');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656927', 'Alessando Varela', 'M', '04-08-2015', '1890','9','4');
+INSERT INTO funcionarios (CPF, name, genero, data_admissao, salario, id_filial, id_departamento) VALUES ('11704656928', 'Cintia Gomes', 'F', '04-05-2015', '3500','9','5');
+
+/* 7- Crie uma consulta SQL que liste todos os colaboradores da empresa. A consulta deve trazer as
+seguintes colunas: */
+SELECT funcionarios.cpf, funcionarios.name, filiais.cidade, departamentos.name
+FROM filiais
+LEFT JOIN funcionarios ON funcionarios.id_filial = filiais.filiais_id
+JOIN departamentos ON funcionarios.id_departamento = departamentos.dep_id;
+
+/* 8- Crie uma consulta SQL que liste os 5 colaboradores mais antigos da empresa. A consulta deve
+trazer as seguintes colunas: */
+
+SELECT funcionarios.CPF, funcionarios.name, funcionarios.data_admissao, filiais.cidade
+FROM filiais
+JOIN funcionarios ON funcionarios.id_filial = filiais.filiais_id
+ORDER BY funcionarios.data_admissao
+FETCH NEXT 5 ROWS ONLY;
+
+/* 9- Crie uma consulta SQL que liste a quantidade de colaboradores por filial. A consulta deve trazer
+as seguintes colunas: */
+
+SELECT filiais.filiais_id, filiais.cidade, COUNT (funcionarios.id_filial) AS quantidade
+FROM filiais, funcionarios
+WHERE funcionarios.id_filial = filiais.filiais_id
+GROUP BY filiais.cidade, filiais.filiais_id;
+
+/* 10- Crie uma consulta SQL que liste a média salarial por departamento de toda a empresa. A
+consulta deve trazer as seguintes colunas: */
+
+SELECT departamentos.dep_id, departamentos.name,
+AVG(funcionarios.salario) AS media
+FROM departamentos, funcionarios
+WHERE departamentos.dep_id = funcionarios.id_departamento
+GROUP BY departamentos.dep_id, departamentos.name;
